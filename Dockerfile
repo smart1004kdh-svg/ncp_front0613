@@ -18,11 +18,12 @@ RUN npm run build
 FROM nginx:alpine
 
 #nginx실행시 BACkEND_HOST 환경변수 주입
-ENV BACKEND_HOST=${BACKEND_HOST}
+#ENV BACKEND_HOST=${BACKEND_HOST}
+
 #nginx 설정 탬플릿 파일을  conf.d 폴더로 복사
 # default.conf.template 파일은 nginx 설정 파일로, BACKEND_HOST 환경변수를 사용하여 프론트엔드에서 백엔드 API 서버로의 프록시 설정을 포함하고 있음
-COPY nginx/default.conf.template /etc/nginx/conf.d/default.conf.template
-#node이미지에서 빌드과정에서 생성된 React정적 폴더 '/dist'를 
+COPY nginx/default.conf.template /etc/nginx/templates/default.conf.template
+#node이미지에서 빌드과정에서 생성된 React정적 폴더 /dist'를 
 #nginx이미지의 html폴더로 복사
 COPY  --from=build /app/dist /usr/share/nginx/html
 
