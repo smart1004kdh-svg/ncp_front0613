@@ -10,6 +10,18 @@ server {
         try_files $uri /index.html;
     }
     
+    #로드 벨랜서 분산 확인용 경로 설정
+    location /frontend-info {
+        default_type application/json;
+        #응답결과 설정
+        return 200 '{"type":"frontend","hostname":"$FRONTEND_NAME}"}';
+
+
+
+    }
+
+
+
     #privte서버의 node.js
     #우분투의 환경변수
     location /api/ {
